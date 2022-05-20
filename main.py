@@ -1,16 +1,34 @@
-# This is a sample Python script.
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
+import discord
 
+# GETS THE CLIENT OBJECT FROM DISCORD.PY. CLIENT IS SYNONYMOUS WITH BOT.
+bot = discord.Client()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+# EVENT LISTENER FOR WHEN THE BOT HAS SWITCHED FROM OFFLINE TO ONLINE.
+@bot.event
+async def on_ready():
+	# CREATES A COUNTER TO KEEP TRACK OF HOW MANY GUILDS / SERVERS THE BOT IS CONNECTED TO.
+	guild_count = 0
 
+	# LOOPS THROUGH ALL THE GUILD / SERVERS THAT THE BOT IS ASSOCIATED WITH.
+	for guild in bot.guilds:
+		# PRINT THE SERVER'S ID AND NAME.
+		print(f"- {guild.id} (name: {guild.name})")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+		# INCREMENTS THE GUILD COUNTER.
+		guild_count = guild_count + 1
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+	# PRINTS HOW MANY GUILDS / SERVERS THE BOT IS IN.
+	print("SampleDiscordBot is in " + str(guild_count) + " guilds.")
+
+# EVENT LISTENER FOR WHEN A NEW MESSAGE IS SENT TO A CHANNEL.
+@bot.event
+async def on_message(message):
+	# CHECKS IF THE MESSAGE THAT WAS SENT IS EQUAL TO "HELLO".
+	if message.content == "hello":
+		# SENDS BACK A MESSAGE TO THE CHANNEL.
+		await message.channel.send("hey dirtbag")
+
+# EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
+bot.run("OTc2NzQ0NjE3NDU2MzA4Mjk0.GjulLV.RW270uYlqdT_p8L9NaTHsITN8e-UDy8581JMH0")
